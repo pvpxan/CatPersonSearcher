@@ -1,0 +1,135 @@
+﻿<UserControl x:Class="CatPersonSearcher.Settings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CatPersonSearcher"
+             xmlns:ext="clr-namespace:StreamlineMVVM;assembly=StreamlineMVVM"
+             mc:Ignorable="d"
+             x:Name="settingsControl"
+             Height="200" Width="450"
+             d:DesignHeight="250" d:DesignWidth="500">
+    
+    <DockPanel Margin="10,5,10,10">
+        <StackPanel HorizontalAlignment="Stretch" DockPanel.Dock="Top">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Default Search Option:" Height="26" Padding="0"
+                       HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+                       Foreground="White" FontFamily="Segoe UI" FontSize="16"/>
+
+                <RadioButton x:Name="quickRadio" Foreground="Black"
+                             Margin="15,0,0,0" Height="26"
+                             HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center"
+                             FontFamily="Segoe UI" FontSize="16" FontWeight="Bold"
+                             GroupName="CurrentSearch"
+                             IsTabStop="False"
+                             TabIndex="0"
+                             IsChecked="{Binding QuickSearchChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Center"
+                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                           Height="26" Margin="0,0,0,0" Padding="0" Content="Quick" Foreground="White"/>
+                </RadioButton>
+
+                <RadioButton x:Name="detailedRadio" Foreground="Black"
+                             Margin="15,0,0,0" Height="26"
+                             HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center"
+                             FontFamily="Segoe UI" FontSize="16" FontWeight="Bold"
+                             GroupName="CurrentSearch"
+                             IsTabStop="False"
+                             TabIndex="1"
+                             IsChecked="{Binding DetailedSearchChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Center"
+                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                       Height="26" Margin="0,0,0,0" Padding="0" Content="Detailed" Foreground="White"/>
+                </RadioButton>
+
+            </StackPanel>
+
+            <CheckBox x:Name="showAllCheckbox" Height="26" Width="474"
+                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                      HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+                      IsTabStop="True"
+                      TabIndex="2"
+                      IsChecked="{Binding ShowAllRecordsCheckbox}">
+
+                <Label Margin="5,0,0,0" Content="Show all records on empty search." Height="26" Padding="0"
+                           HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+                           Foreground="White" FontFamily="Segoe UI" FontSize="16"/>
+            </CheckBox>
+
+            <CheckBox x:Name="simulateDelayCheckBox" Height="26" Width="474"
+                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                      HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+                      IsTabStop="True"
+                      TabIndex="3"
+                      IsChecked="{Binding SimulateDelayCheckBox}">
+
+                <Label Margin="5,0,0,0" Content="Add simulated delayed to application." Height="26" Padding="0"
+                       HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+                       Foreground="White" FontFamily="Segoe UI" FontSize="16"/>
+            </CheckBox>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Margin="0,0,0,0" Content="Load Delay:" Height="29" Padding="0"
+                       HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+                       Foreground="White" FontFamily="Segoe UI" FontSize="16"/>
+
+                <TextBox x:Name="loadDelayTextbox" Margin="5,0,0,0" Height="29" Width="60" TabIndex="4" 
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                             TextChanged="delayTextChanged"
+                             PreviewTextInput="delayPreviewTextInput"
+                             Text="{Binding LoadDelayTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                </TextBox>
+
+                <Label Margin="15,0,0,0" Content="Search Delay:" Height="29" Padding="0"
+                       HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+                       Foreground="White" FontFamily="Segoe UI" FontSize="16"/>
+
+                <TextBox x:Name="searchDelayTextbox" Margin="5,0,0,0" Height="29" Width="60" TabIndex="4" 
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                             TextChanged="delayTextChanged"
+                             PreviewTextInput="delayPreviewTextInput"
+                             Text="{Binding SearchDelayTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                </TextBox>
+            </StackPanel>
+        </StackPanel>
+
+        <DockPanel Height="30" VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
+            <Button x:Name="resetButton" Height="30" Width="130" 
+                    HorizontalAlignment="Left" DockPanel.Dock="Left"
+                    ext:Extensions.CornerRadius="4"
+                    ext:Extensions.FocusThickness="2"
+                    Style="{StaticResource ButtonExtendedStyle}"
+                    TabIndex="6"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                    Command="{Binding Reset}">
+                <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-2,0,0" Padding="0" 
+                       Foreground="White" Content="Reset Database"/>
+            </Button>
+
+            <Button x:Name="saveExitButton" Height="30" Width="130"
+                    HorizontalAlignment="Right" DockPanel.Dock="Right"
+                    ext:Extensions.CornerRadius="4"
+                    ext:Extensions.FocusThickness="2"
+                    Style="{StaticResource ButtonExtendedStyle}"
+                    TabIndex="7"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                    Command="{Binding SaveExit}">
+                <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-2,0,0" Padding="0" 
+                       Foreground="White" Content="Save and Exit"/>
+            </Button>
+
+            <Button x:Name="exitButton" Height="30" Width="60"
+                    HorizontalAlignment="Center"
+                    ext:Extensions.CornerRadius="4"
+                    ext:Extensions.FocusThickness="2"
+                    Style="{StaticResource ButtonExtendedStyle}"
+                    TabIndex="7"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                    Command="{Binding Exit}">
+                <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-2,0,0" Padding="0" 
+                       Foreground="White" Content="Exit"/>
+            </Button>
+        </DockPanel>
+    </DockPanel>
+</UserControl>

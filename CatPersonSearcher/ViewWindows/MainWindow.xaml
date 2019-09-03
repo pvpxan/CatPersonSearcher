@@ -1,0 +1,57 @@
+﻿<Window x:Class="CatPersonSearcher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CatPersonSearcher"
+        mc:Ignorable="d"
+        Title="Cat Person Database Searcher" SizeToContent="WidthAndHeight"
+        Background="#FF1E1E1E" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"
+        Icon="pack://application:,,,/Resources/search-cat.ico">
+    
+    <DockPanel Margin="0,0,0,0">
+        <Menu x:Name="menu" Margin="0,0,0,0" Height="28" Foreground="#FF3D3D3D" DockPanel.Dock="Top"
+            FontFamily="Segoe UI" FontSize="14" FontWeight="Bold">
+
+            <Menu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel HorizontalAlignment="Stretch"/>
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
+
+            <Menu.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF606060" Offset="1"/>
+                    <GradientStop Color="#FF1E1E1E" Offset="0.4"/>
+                </LinearGradientBrush>
+            </Menu.Background>
+
+            <MenuItem x:Name="fileMenuItem" IsEnabled="True" Visibility="Visible"
+                      Header="_File" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FFC9C9C9" TabIndex="1">
+                <MenuItem Header="_Catalog" Foreground="Black" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"
+                          CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                          Command="{Binding OpenCatalog}"/>
+                <Separator />
+                <MenuItem Header="_Settings" Foreground="Black" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"
+                          CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                          Command="{Binding Settings}"/>
+            </MenuItem>
+
+            <MenuItem x:Name="aboutMenuItem" IsEnabled="True" Visibility="Visible" 
+                      Header="_About" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FFC9C9C9" TabIndex="2"
+                      CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                      Command="{Binding About}">
+            </MenuItem>
+
+            <MenuItem x:Name="toggleMenuItem" IsEnabled="False" Visibility="Hidden"
+                      Header="_Toggle Search" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="#FFC9C9C9" TabIndex="3"
+                      CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                      Command="{Binding ToggleSearch}">
+            </MenuItem>
+        </Menu>
+
+        <Grid x:Name="dynamicGrid" Margin="10,5,10,5">
+            <local:Connect/>
+        </Grid>
+    </DockPanel>
+</Window>

@@ -1,0 +1,15 @@
+2019-09-01 - 17:09:10 - david - Error running query. Search ID: 8
+System.ArgumentException: An item with the same key has already been added.
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at System.Data.Entity.Core.Objects.ObjectStateManager.AddStateManagerTypeMetadata(EntitySet entitySet, ObjectTypeMapping mapping)
+   at System.Data.Entity.Core.Objects.ObjectStateManager.GetOrAddStateManagerTypeMetadata(Type entityType, EntitySet entitySet)
+   at System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   at lambda_method(Closure , Shaper )
+   at System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at CatPersonSearcher.SQLFunctions.GetPersonDetails(Int64 id) in C:\Projects\CatPersonSearcher\CatPersonSearcher\Classes\SQLFunctions.cs:line 75

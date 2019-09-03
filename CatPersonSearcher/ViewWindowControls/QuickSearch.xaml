@@ -1,0 +1,244 @@
+﻿<UserControl x:Class="CatPersonSearcher.QuickSearch"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CatPersonSearcher"
+             xmlns:ext="clr-namespace:StreamlineMVVM;assembly=StreamlineMVVM"
+             mc:Ignorable="d"
+             x:Name="searchControl"
+             Height="614" Width="714"
+             d:DesignHeight="614" d:DesignWidth="714">
+
+    <DockPanel>
+        <DockPanel HorizontalAlignment="Stretch" DockPanel.Dock="Top">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" DockPanel.Dock="Left">
+                <Label Content="Search:" Height="29" Width="50" Padding="0"
+                       HorizontalAlignment="Left" VerticalContentAlignment="Center"
+                       Foreground="White" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+
+                <TextBox x:Name="searchTextbox" Height="29" Width="237" TabIndex="1"
+                         HorizontalAlignment="Left" VerticalContentAlignment="Center"
+                         TextChanged="searchTextChanged"
+                         PreviewTextInput="searchPreviewTextInput"
+                         Text="{Binding SearchTextbox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                <Button x:Name="addButton" Height="29" Width="80"
+                        ext:Extensions.CornerRadius="4"
+                        ext:Extensions.FocusThickness="2"
+                        Style="{StaticResource ButtonExtendedStyle}"
+                        HorizontalAlignment="Right" VerticalAlignment="Center"
+                        TabIndex="2"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                        Command="{Binding Add}">
+                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-2,0,0" Padding="0" 
+                           Foreground="White" Content="Add"/>
+                </Button>
+
+                <Button x:Name="editButton" Height="29" Width="80" Margin="4,0,0,0"
+                        ext:Extensions.CornerRadius="4"
+                        ext:Extensions.FocusThickness="2"
+                        Style="{StaticResource ButtonExtendedStyle}"
+                        HorizontalAlignment="Right" VerticalAlignment="Center"
+                        TabIndex="2"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                        Command="{Binding Edit}">
+                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-2,0,0" Padding="0" 
+                           Foreground="White" Content="Edit"/>
+                </Button>
+
+                <Button x:Name="refreshButton" Height="29" Width="80" Margin="4,0,0,0"
+                        ext:Extensions.CornerRadius="4"
+                        ext:Extensions.FocusThickness="2"
+                        Style="{StaticResource ButtonExtendedStyle}"
+                        HorizontalAlignment="Right" VerticalAlignment="Center"
+                        TabIndex="3"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                        Command="{Binding Refresh}">
+                    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-2,0,0" Padding="0" 
+                       Foreground="White" Content="Refresh"/>
+                </Button>
+            </StackPanel>
+
+            <ProgressBar x:Name="boringProgressBar" Margin="0,0,0,0" Height="14" Width="84"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         LargeChange="20" SmallChange="1"
+                         TabIndex="50" IsTabStop="False"
+                         IsIndeterminate="True"
+                         IsEnabled="{Binding ProgressBarIsEnabled}"
+                         Visibility="{Binding ProgressBarVisibility}"/>
+        </DockPanel>
+
+        <StackPanel HorizontalAlignment="Left" DockPanel.Dock="Left" Margin="0,2,0,0">
+            <ListView x:Name="quickSearchListView"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                      Height="549" Width="287"
+                      FontFamily="Segoe UI" TabIndex="2"
+                      SelectionMode="Single"
+                      ItemsSource="{Binding PersonTableResults}"
+                      SelectedIndex="{Binding SelectedIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource ListViewItemExtendedStyle}">
+                        <Setter Property="ext:Extensions.CommandParameter" Value="{Binding RelativeSource={RelativeSource AncestorType=Window}}" />
+                        <Setter Property="ext:Extensions.Command" Value="{Binding Path=DataContext.Edit, ElementName=searchControl}" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.View>
+                    <GridView x:Name="simplePersonDataGridView">
+                        <GridViewColumn x:Name="firstNameColumn" Header="First Name:" Width="120"
+                                    DisplayMemberBinding="{Binding Firstname}">
+                            <GridViewColumn.HeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="TextElement.Foreground" Value="Black"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GridViewColumn.HeaderContainerStyle>
+                        </GridViewColumn>
+
+                        <GridViewColumn x:Name="lastNameColumn" Header="Last Name:" Width="160"
+                                    DisplayMemberBinding="{Binding Lastname}">
+                            <GridViewColumn.HeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="TextElement.Foreground" Value="Black"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GridViewColumn.HeaderContainerStyle>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <DockPanel Margin="0,2,0,0">
+                <Button x:Name="pageBackButton" Height="29" Width="29"
+                        ext:Extensions.CornerRadius="4"
+                        ext:Extensions.FocusThickness="2"
+                        Style="{StaticResource ButtonExtendedStyle}"
+                        HorizontalAlignment="Left" VerticalAlignment="Center" DockPanel.Dock="Left"
+                        TabIndex="4"
+                        IsEnabled="{Binding PageBackIsEnabled}"
+                        CommandParameter="{x:Null}"
+                        Command="{Binding PageBack}">
+                    <Path Fill="White" Data="M -2 6 L 12 12 L 12 0 Z"/>
+                </Button>
+
+                <Button x:Name="pageNextButton" Height="29" Width="29"
+                        ext:Extensions.CornerRadius="4"
+                        ext:Extensions.FocusThickness="2"
+                        Style="{StaticResource ButtonExtendedStyle}"
+                        HorizontalAlignment="Right" VerticalAlignment="Center" DockPanel.Dock="Right"
+                        TabIndex="5"
+                        IsEnabled="{Binding PageNextIsEnabled}"
+                        CommandParameter="{x:Null}"
+                        Command="{Binding PageNext}">
+                    <Path Fill="White" Data="M 2 12 L 16 6 L 2 0 Z"/>
+                </Button>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140">
+                    <TextBox x:Name="pageTextbox" Height="29" Width="60" TabIndex="6" 
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                             TextChanged="pageTextChanged"
+                             PreviewTextInput="pagePreviewTextInput"
+                             IsReadOnly="{Binding PageTextBoxIsReadOnly}"
+                             Text="{Binding PageTextbox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter"
+                                CommandParameter="{x:Null}"
+                                Command="{Binding GoToPage}" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+
+                    <Label Content="/" Height="29" Width="20" Padding="0"
+                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                           Foreground="White" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"/>
+
+                    <Label x:Name="pageLabel" Content="{Binding PageCountLabel}" Height="29" Width="60" Padding="0"
+                           HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+                           Foreground="White" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"/>
+                </StackPanel>
+            </DockPanel>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Right" DockPanel.Dock="Right" Width="419" Margin="8,4,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" DockPanel.Dock="Top">
+                <Label Content="Street:" Height="29" Width="60" Padding="0" 
+                           VerticalContentAlignment="Center"
+                           Foreground="White" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+                <TextBox Text="{Binding PersonDataResults.Street}" Height="29" Width="359" Padding="8,0,8,0" IsReadOnly="True" 
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Left"
+                             Foreground="White" Background="#FF1B1B1C" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" DockPanel.Dock="Top" Margin="0,4,0,0">
+                <Label Content="City:" Height="29" Width="60" Padding="0" 
+                           VerticalContentAlignment="Center"
+                           Foreground="White" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+
+                <TextBox Text="{Binding PersonDataResults.City}" Height="29" Width="170" Padding="8,0,8,0" IsReadOnly="True" 
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Left"
+                             Foreground="White" Background="#FF1B1B1C" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+
+                <Label Content="State:" Height="29" Width="40" Padding="0" VerticalContentAlignment="Center" Margin="8,0,0,0"
+                           Foreground="White" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+
+                <TextBox Text="{Binding PersonDataResults.State}" Height="29" Width="50" Padding="0" IsReadOnly="True" 
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center"
+                             Foreground="White" Background="#FF1B1B1C" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+
+                <Label Content="Zip:" Height="29" Width="33" Padding="0" VerticalContentAlignment="Center" Margin="8,0,0,0"
+                           Foreground="White" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+
+                <TextBox Text="{Binding PersonDataResults.Zipcode}" Height="29" Width="50" Padding="0" IsReadOnly="True" 
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center"
+                             Foreground="White" Background="#FF1B1B1C" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" DockPanel.Dock="Top" Margin="0,4,0,0">
+                <Label Content="Phone:" Height="29" Width="60" Padding="0" 
+                           VerticalContentAlignment="Center"
+                           Foreground="White" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+
+                <TextBox Text="{Binding PersonDataResults.Phone}" Height="29" Width="268" Padding="8,0,8,0" IsReadOnly="True" 
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Left"
+                             Foreground="White" Background="#FF1B1B1C" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+
+                <Label Content="Age:" Height="29" Width="33" Padding="0" VerticalContentAlignment="Center" Margin="8,0,0,0"
+                           Foreground="White" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+
+                <TextBox Text="{Binding PersonDataResults.Age}" Height="29" Width="50" Padding="0" IsReadOnly="True" 
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center"
+                             Foreground="White" Background="#FF1B1B1C" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" DockPanel.Dock="Top" Margin="0,4,0,0">
+                <Label Content="Interests:" Height="29" Width="60" Padding="0" VerticalContentAlignment="Center"
+                           Foreground="White" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+                <TextBox Text="{Binding PersonDataResults.Interests}" Height="58" Width="359" Padding="8,4,10,0"
+                             VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Foreground="White" Background="#FF1B1B1C"
+                             IsReadOnly="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+            </StackPanel>
+
+            <Grid Height="410" Width="410" Margin="0,8,0,0">
+                <Image x:Name="portraitImage" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Portrait}" />
+            </Grid>
+        </StackPanel>
+    </DockPanel>
+</UserControl>

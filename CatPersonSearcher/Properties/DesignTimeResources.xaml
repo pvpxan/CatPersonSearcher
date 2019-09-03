@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CatPersonSearcher">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/StreamlineMVVM;component/Templates/MergedResources.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CatPersonSearcher">
+
+    <!--
+    This file is needed for certain windows to load correctly and for them to properly interact with embedded libraries.
+    The following DataTemplates can ONLY be loaded AFTER the ClientResources library has been loaded in App.xaml.cs file.
+    -->
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+
+            <!-- START Dialog DataTypes -->
+            <DataTemplate DataType="{x:Type local:SettingsViewModel}">
+                <local:Settings></local:Settings>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type local:AddEditViewModel}">
+                <local:AddEdit></local:AddEdit>
+            </DataTemplate>
+            <!-- END Dialog DataTypes -->
+
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

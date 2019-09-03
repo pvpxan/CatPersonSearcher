@@ -1,0 +1,44 @@
+CREATE TABLE PersonData (
+  'ID' INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+  'Firstname' VARCHAR(255) default '',
+  'Lastname' VARCHAR(255) default ''
+);
+
+CREATE TABLE DetailsData (
+  'ID' INTEGER PRIMARY KEY NOT NULL,
+  'Age' VARCHAR(10) default '',
+  'Interests' VARCHAR(255) default '',
+  'PhotoURL' VARCHAR(255) default '',
+  CONSTRAINT FK_PersonDataID FOREIGN KEY(ID) REFERENCES PersonData(ID) ON DELETE CASCADE
+);
+
+CREATE TABLE AddressData (
+  'ID' INTEGER  PRIMARY KEY NOT NULL,
+  'Phone' VARCHAR(100) default '',
+  'Street' VARCHAR(255) default '',
+  'City' VARCHAR(255) default '',
+  'State' VARCHAR(50) default '',
+  'ZipCode' VARCHAR(10) default '',
+  CONSTRAINT FK_PersonDataID FOREIGN KEY(ID) REFERENCES PersonData(ID) ON DELETE CASCADE
+);
+
+CREATE TABLE "TableCount" (
+	"ID"	INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+	"PersonCount"	INTEGER DEFAULT 0
+);
+
+CREATE INDEX "Person_Index" ON "PersonData" (
+	"ID",
+	"Firstname",
+	"Lastname"
+);
+
+CREATE INDEX "Address_Index" ON "AddressData" (
+	"ID"
+);
+
+CREATE INDEX "Details_Index" ON "DetailsData" (
+	"ID"
+);
+
+INSERT INTO `TableCount` (`PersonCount`) VALUES ("100");

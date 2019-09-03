@@ -1,0 +1,35 @@
+﻿<Window x:Class="UnitTesting.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UnitTesting"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="570" Background="Black">
+    <StackPanel Orientation="Horizontal">
+        <StackPanel Width="150">
+            <Button x:Name="testing1" Content="Connect to DB"
+                    Width="120" Height="25" Click="Testing1_Click"/>
+            <Button x:Name="testing2" Content="Refresh Database"
+                    Width="120" Height="25" Click="Testing2_Click"/>
+
+            <Button x:Name="testing3" Content="Open Full Record List"
+                    Width="120" Height="25" Click="Testing3_Click"/>
+
+            <Button x:Name="testing4" Content="Update Record"
+                    Width="120" Height="25" Click="Testing4_Click"/>
+
+            <Button x:Name="testing5" Content="Add Record"
+                    Width="120" Height="25" Click="Testing5_Click"/>
+
+            <Button x:Name="testing6" Content="Delete Record"
+                    Width="120" Height="25" Click="Testing6_Click" />
+
+            <Button x:Name="testing7" Content="Re Init"
+                    Width="120" Height="25" Click="Testing7_Click"/>
+        </StackPanel>
+
+        <TextBox x:Name="output" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                 Height="253" TextWrapping="Wrap" VerticalAlignment="Top" Width="396"/>
+    </StackPanel>
+</Window>
