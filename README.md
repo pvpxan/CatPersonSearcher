@@ -68,6 +68,11 @@ Seeded from https://www.generatedata.com/
 
 * After application runs, the `.\Resources\PersonData.db` file is used.
 
+# Future
+* One thing of not I want to do is enhance the photo to be less boring.
+* Tabbing to `TextBoxes` should move the `Caret` position to the end of the text.
+* Add more versitility the SQL functions for increased flexibility in queries and inserts.
+
 # Unit Testing
 * Most testing was done with the UnitTesting program along side this.
 * There was some janky test as you go done also :/
