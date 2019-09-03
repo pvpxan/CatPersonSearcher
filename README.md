@@ -60,7 +60,7 @@ Seeded from https://www.generatedata.com/
 `EntityFramework.SqlServer.dll`\
 `EntityFramework.SqlServer.xml`\
 `EntityFramework.xml`\
-`System.Data.SQLite.dll\
+`System.Data.SQLite.dll`\
 `System.Data.SQLite.dll.config`\
 `System.Data.SQLite.EF6.dll`\
 `System.Data.SQLite.Linq.dll`\
