@@ -167,9 +167,10 @@
                 <Label Content="Photo:" Height="29" Width="65" Padding="0" 
                        VerticalContentAlignment="Center"
                        Foreground="White" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
-                <TextBox Text="{Binding PhotoURL}" Height="29" Width="447" Padding="8,0,10,0" IsReadOnly="True" 
+                <TextBox Text="{Binding PhotoURL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                         Height="29" Width="447" Padding="8,0,10,0" IsReadOnly="True" 
                          VerticalContentAlignment="Center" HorizontalContentAlignment="Left"
-                         Foreground="White" Background="#FF1B1B1C" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+                         FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
             </StackPanel>
 
             <Grid Height="410" Width="410" Margin="0,4,0,0">
