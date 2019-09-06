@@ -85,8 +85,11 @@ namespace CatPersonSearcher
                 OnPropertyChanged(new PropertyChangedEventArgs("SelectedIndex"));
 
                 Portrait = null;
-                Portrait = PhotoThumbnails[SelectedIndex].Portrait;
-                Filename = PhotoThumbnails[SelectedIndex].Filename;
+                if (SelectedIndex > -1)
+                {
+                    Portrait = PhotoThumbnails[SelectedIndex].Portrait;
+                    Filename = PhotoThumbnails[SelectedIndex].Filename;
+                }
             }
         }
 

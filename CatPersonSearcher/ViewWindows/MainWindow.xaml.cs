@@ -110,7 +110,7 @@ namespace CatPersonSearcher
             try
             {
                 Task taskDelay = null;
-                taskDelay = Task.Delay(1);
+                taskDelay = Task.Delay(10);
                 await taskDelay;
 
                 double screenWidth = SystemParameters.PrimaryScreenWidth;
